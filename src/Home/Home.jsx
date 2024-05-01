@@ -1,6 +1,7 @@
 import About from "../Pages/About";
 import Navber from "../Shared/Navber";
 import Banner from "./Banner";
+import Product from "./Product";
 import Service from "./Service";
 
 
@@ -12,6 +13,7 @@ const Home = () => {
             <Banner></Banner>
             <About></About>
             <Service></Service>
+            <Product></Product>
         </div>
     );
 };
