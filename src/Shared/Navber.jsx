@@ -2,7 +2,21 @@
 import logo from "../../src/assets/logo.svg";
 import { Link } from "react-router-dom";
 import { IoCartSharp, IoSearch } from "react-icons/io5";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 const Navber = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+    .then( () => {
+      toast.success('Successfully log out')
+    })
+    .catch( () => {
+      toast.error('User not log out')
+    })
+  };
   const links = (
     <>
       <Link
@@ -15,11 +29,7 @@ const Navber = () => {
         to={"/about"}>
         About
       </Link>
-      <Link
-        className="text-xl font-semibold ml-5"
-        to={"/service"}>
-        Service
-      </Link>
+     
       <Link
         className="text-xl font-semibold ml-5"
         to={"/blog"}>
@@ -30,6 +40,24 @@ const Navber = () => {
         to={"/contact"}>
         Contact
       </Link>
+      {user?.email ? (
+        <>
+        <button
+          onClick={handleLogOut}
+          className="text-xl font-semibold ml-5">
+          Log out
+        </button>
+         <Link
+         className="text-xl font-semibold ml-5"
+         to={"/services"}>
+         Services
+       </Link>
+        </>
+      ) : (
+        <li>
+          <Link className="" to={"/login"}>Login</Link>
+        </li>
+      )}
     </>
   );
   return (
@@ -70,8 +98,8 @@ const Navber = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-      <IoCartSharp  className="w-20 text-xl"/>
-      <IoSearch className="w-20 text-xl" />
+        <IoCartSharp className="w-20 text-xl" />
+        <IoSearch className="w-20 text-xl" />
         <button className="btn btn-outline btn-secondary">Appointment</button>
       </div>
     </div>
